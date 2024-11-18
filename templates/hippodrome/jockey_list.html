@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block main %}
+
+  <main id="main" class="main">
+    <div class="container">
+<div class="col-12">
+              <div class="card top-selling overflow-auto">
+                  
+
+                <div class="card-body pb-0">
+                 <a class="btn btn-primary" href="{% url 'hippodrome:add_jockey' %}"> Ajouter un Jockey</a>
+
+                  <h5 class="card-title">Liste des Jockeys</h5>
+
+                  <table class="table table-bordered text-center">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Experience</th>
+                        <th scope="col">Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for jockey in jockeys %}
+                      <tr>
+                        <th scope="row">
+                            <a href="#">
+                            {% if jockey.photo %}
+                                <img src="{{ jockey.photo.url }}" alt="Photo de {{ jockey.name }}" width="100">
+                            {% endif %}
+                            </a>
+                        </th>
+                      
+                          
+                        <td><a href="#" class="text-primary fw-bold">{{ jockey.name }}</a></td>
+                        <td>{{ jockey.age }} Ans</td>
+                        <td class="fw-bold">{{ jockey.experience }} Ans</td>
+                        <td class="text-nowrap">
+                             <a class="btn btn-primary d-inline-block me-2" href="{% url 'hippodrome:jockeys_update' jockey.id %}">
+                                 <i class="bi bi-pencil-square"></i>
+                             </a>
+                                                
+                             <a class="btn bg-danger d-inline-block" data-bs-toggle="modal" data-bs-target="#deleteJockeyModal{{ jockey.id }}">
+                                  <i class="bi bi-trash"></i>
+                             </a>
+                             <div class="modal fade deleteJockeyModal{{ jockey.id }}" id="deleteJockeyModal{{ jockey.id }}" tabindex="-1" aria-labelledby="deleteJockeyModalLabel{{ jockey.id }}" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                     <div class="modal-content">
+                                        <div class="modal-header">
+                                           <h1 class="modal-title fs-5" id="deleteJockeyModalLabel{{ jockey.id }}">Confirmation de suppression</h1>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                     <div class="modal-body">
+                                        <p>Etes vous sur de vouloir supprimer le jockey: <br> <span class="bold">{{ jockey.name }}</span>?</p>
+                                     </div>
+                                     <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                          <form method="post" action="{% url 'hippodrome:jockeys_delete' jockey.id %}">
+                                             {% csrf_token %}
+                                             <button type="submit" class="btn btn-primary">Confirmer</button>
+                                          </form> 
+                                     </div>
+                                     </div>
+                                 </div>
+                             </div>                                                
+
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div>
+    </div>
+  </main>
+{% endblock %}

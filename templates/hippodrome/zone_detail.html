@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Détails du cheval : {{ cheval.name }}{% endblock %}
+
+{% block main %}
+<main id="main" class="main">
+
+    <section class="section dashboard">
+        <div class="row">
+        
+            <div class="container py-5">
+                <h1 class="mb-4">Détails de la zone : {{ zone.name }}</h1>
+                <div class="card shadow-sm">
+                    <div class="row">
+                        
+                    <div class="col-md-5">
+                        <div class="card-body">
+                    <h5 class="card-title">Informations sur la Zone</h5>
+                    <p class="card-text">
+                        <strong>Type :</strong> {{ zone.get_type_display }}<br>
+                        <strong>Statut :</strong> 
+                        {% if zone.is_occupied %}
+                            <span class="text-danger">Occupée</span>
+                        {% else %}
+                            <span class="text-success">Disponible</span>
+                        {% endif %}
+                    </p>
+
+                    {% if zone.cheval %}
+                        <h6 class="mt-4">Cheval Actuellement Affecté</h6>
+                        <div class="d-flex align-items-center">
+                            <img src="{{ zone.cheval.photo.url }}" alt="{{ zone.cheval.name }}" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <div>
+                                <p class="mb-0"><strong>Nom :</strong> {{ zone.cheval.name }}</p>
+                                <p class="mb-0"><strong>Type de course :</strong> {{ zone.cheval.get_race_type_display }}</p>
+                                <a href="{% url 'hippodrome:cheval_detail' zone.cheval.id %}" class="btn btn-link p-0">Voir les détails du cheval</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-muted mt-4">Aucun cheval n'est actuellement affecté à cette zone.</p>
+                    {% endif %}
+                    <a href="{% url 'hippodrome:zone_list' %}" class="btn btn-secondary mt-3">Retour à la liste des zone</a>
+
+                </div>
+                        
+                    </div>
+                    <div class="col-md-5">
+                            {% if zone.image %}
+                            <img src="{{ zone.image.url }}" class="card-img-top" alt="Image de {{ zone.name }}">
+                            {% endif %}
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

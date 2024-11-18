@@ -1,0 +1,108 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block title %}New ReissueRequest {% endblock %}
+
+
+{% block main %}
+
+  <main id="main" class="main">
+
+      <div class="container">
+        <h1 class="mb-4 text-center">Liste des ecuries</h1>
+      <br>
+        <div class="row">
+            {% for ecurie in object_list %}
+                <div class="col-md-3 mb-4">
+                    <div class="card shadow-sm">
+                    <a href="{% url 'hippodrome:cheval_detail' ecurie.id%}" class="text-black">
+                        <h5>{{ ecurie.name }}</h5>
+                        {% if ecurie.logo %}
+                            <img src="{{ ecurie.logo.url }}" class="card-img-top fixed-height-img" alt="Image de {{ cheval.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200?text=Pas+d%27image" class="card-img-top fixed-height-img" alt="Pas d'image">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Location :</strong> {{ ecurie.location }}<br>
+                                <strong>Nombre max :</strong> {{ ecurie.max_chevaux }} Chevaux<br>
+                                <strong>Nombre de chevaux disponible :</strong>{{ ecurie.chevaux.all | length}}  Chevaux<br>
+                                
+                            </p>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        {% if not object_list %}
+            <p class="text-center">Aucun cheval n'est disponible pour le moment.</p>
+        {% endif %}
+    </div>
+  {% if is_paginated %}
+                            <nav aria-label="Page navigation example">
+                              <ul class="pagination justify-content-end">
+                                <!-- Lien vers la page précédente -->
+                                {% if page_obj.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                  </li>
+                                {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Avant</a>
+                                  </li>
+                                {% endif %}
+                            
+                                <!-- Affichage des 5 premières pages -->
+                                {% for num in paginator.page_range %}
+                                  {% if num <= 10 %}
+                                    {% if page_obj.number == num %}
+                                      <li class="page-item active">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                      </li>
+                                    {% else %}
+                                      <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                      </li>
+                                    {% endif %}
+                                  {% endif %}
+                                {% endfor %}
+                            
+                                <!-- Affichage des points de suspension si plus de 5 pages -->
+                                {% if paginator.num_pages > 10 %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">...</a>
+                                  </li>
+                                  <li class="page-item">
+                                        <a class="page-link" href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+                                  </li>  
+                                {% endif %}
+                            
+                                <!-- Lien vers la page suivante -->
+                                {% if page_obj.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                                  </li>
+                                {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">Suivant</a>
+                                  </li>
+                                {% endif %}
+                              </ul>
+                            
+                              
+                            </nav>
+
+                            
+                        {% endif %}
+
+  </main>
+{% endblock %}
+
+
+
+
+

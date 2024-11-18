@@ -1,0 +1,50 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block title %}New ReissueRequest {% endblock %}
+
+
+{% block main %}
+
+  <main id="main" class="main">
+
+      <section class="section dashboard">
+          <div class="row">
+          
+              <div class="col-lg-12">
+                  <div class="row">
+
+                      <h1 class="mb-4">Détails de la course : {{ course.name }}</h1>
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Informations générales</h5>
+                                <p class="card-text">
+                                    <strong>Date :</strong> {{ course.date|date:"d/m/Y H:i" }}<br>
+                                    <strong>Lieu :</strong> {{ course.location }}
+                                </p>
+                                <h5 class="mt-4">Liste des chevaux participants</h5>
+                                <ul class="list-group">
+                                    {% for cheval in course.chevaux.all %}
+                                        <li class="list-group-item">
+                                            <strong>{{ cheval.name }}</strong> - Âge : {{ cheval.age }} - Type : {{ cheval.get_race_type_display }}
+                                        </li>
+                                    {% empty %}
+                                        <li class="list-group-item text-danger">Aucun cheval inscrit pour cette course.</li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{% url 'hippodrome:course_list' %}" class="btn btn-secondary mt-3">Retour à la liste des courses</a>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+  </main>
+{% endblock %}
+
+
+
+

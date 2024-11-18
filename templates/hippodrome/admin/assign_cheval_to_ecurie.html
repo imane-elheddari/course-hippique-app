@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Affecter {{ cheval.name }} à une nouvelle écurie{% endblock %}
+
+{% block main %}
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Affecter {{ cheval.name }} à une nouvelle écurie</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if message %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if not ecuries %}
+                            <div class="alert alert-warning">
+                                Aucune écurie disponible pour l'affectation.
+                            </div>
+                        {% else %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group mb-3">
+                                    <label for="ecurie">Nouvelle écurie</label>
+                                    <select name="ecurie" id="ecurie" class="form-control">
+                                        {% for ecurie in ecuries %}
+                                            <option value="{{ ecurie.id }}" 
+                                                {% if ecurie.cheval_count >= ecurie.max_chevaux %}disabled{% endif %}>
+                                                {{ ecurie.name }} ({{ ecurie.cheval_count }}/{{ ecurie.max_chevaux }} chevaux)
+                                                {% if ecurie.cheval_count >= ecurie.max_chevaux %} - Complet{% else %} - Disponible{% endif %}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Affecter</button>
+                                <a href="{% url 'hippodrome:cheval_admin_list' %}" class="btn btn-secondary">Annuler</a>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

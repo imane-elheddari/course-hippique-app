@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+{% block head %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  {% block seo %}  
+  <title>Course hippique</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  {% endblock %}    
+
+  <!-- Favicons -->
+  <link href="" rel="icon">
+  <link href="" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    
+</head>
+{% endblock %}
+
+<body>
+
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        
+        <span class="d-none d-lg-block">Course hippique</span>
+      </a>
+    </div>
+      
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+          
+        <li class="nav-item dropdown pe-3 me-5">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{% url 'hippodrome:cheval_list' %}">
+            <span class="d-none d-md-block">Section chevaux</span>
+          </a>
+              
+        </li>
+        <li class="nav-item dropdown pe-3 me-5">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{% url 'hippodrome:zone_list' %}">
+            <span class="d-none d-md-block">Section Zone</span>
+          </a>
+              
+        </li>
+        <li class="nav-item dropdown pe-3 me-5">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{% url 'hippodrome:course_list' %}">
+            <span class="d-none d-md-block">Les courses disponibles</span>
+          </a>
+              
+        </li>
+        <li class="nav-item dropdown pe-3 me-5">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{% url 'hippodrome:ecurie_list' %}">
+            <span class="d-none d-md-block">Les Ecuries disponibles</span>
+          </a>
+              
+        </li>  
+        
+        <li class="nav-item dropdown pe-3 me-4">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><b>Administration</b></span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'hippodrome:jockey_list' %}">
+                <span>Gerer les Jockey</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'hippodrome:cheval_admin_list' %}">
+                <span>Gerer les Chevaux</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>  
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'hippodrome:add_course' %}">
+                <span>Ajouter une course</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'hippodrome:add_ecurse' %}">
+                <span>Gerer les ecuries</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li> 
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'hippodrome:add_zone' %}">
+                <span>Gerer les zones</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>   
+            
+
+          </ul>
+        </li>  
+
+      </ul>
+    </nav>
+
+  </header>
+
+ 
+{% block main %}
+    
+ 
+{% endblock %}
+  
+  
+  <!-- Vendor JS Files -->
+{% block script %}
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+ {% endblock %}
+
+  
+
+</body>
+
+</html>

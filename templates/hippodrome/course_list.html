@@ -1,0 +1,48 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block title %}New ReissueRequest {% endblock %}
+
+
+{% block main %}
+
+  <main id="main" class="main">
+
+      <section class="section dashboard">
+          <div class="row">
+
+              <!-- Left side columns -->
+
+              <div class="col-lg-12">
+                  <div class="row">
+
+                      <h1 class="mb-4 text-center">Liste des Courses</h1>
+                        <div class="row">
+                            {% for course in courses %}
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ course.name }}</h5>
+                                            <p class="card-text">
+                                                <strong>Date :</strong> {{ course.date|date:"d/m/Y H:i" }}<br>
+                                                <strong>Lieu :</strong> {{ course.location }}<br>
+                                                <strong>Nombre de chevaux :</strong> {{ course.chevaux.count }}
+                                            </p>
+                                            <a href="{% url 'hippodrome:course_detail' course.id %}" class="btn btn-primary">Voir les détails</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if not courses %}
+                            <p class="text-center">Aucune course n'est disponible pour le moment.</p>
+                        {% endif %}
+                  </div>
+              </div>
+          </div>
+      </section>
+
+  </main>
+{% endblock %}

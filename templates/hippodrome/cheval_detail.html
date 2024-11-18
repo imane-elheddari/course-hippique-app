@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Détails du cheval : {{ cheval.name }}{% endblock %}
+
+{% block main %}
+<main id="main" class="main">
+
+    <section class="section dashboard">
+        <div class="row">
+        
+            <div class="container py-5">
+                <h1 class="mb-4">Détails du cheval : {{ cheval.name }}</h1>
+                <div class="card shadow-sm">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card-body">
+                        <h5 class="card-title">Informations générales</h5>
+                        <p class="card-text">
+                            <strong>Âge :</strong> {{ cheval.age }} ans<br>
+                            <strong>Type de course :</strong> {{ cheval.get_race_type_display }}<br>
+                            <strong>Jockey :</strong>
+                            {% if cheval.jockey %}
+                                {{ cheval.jockey.name }}
+                            {% else %}
+                                Aucun jockey assigné
+                            {% endif %}
+                        </p>
+
+                        <h5 class="mt-4">Courses associées</h5>
+                        {% if cheval.courses.exists %}
+                            <ul>
+                                {% for course in cheval.courses.all %}
+                                    <li>
+                                        <a href="{% url 'hippodrome:course_detail' course.id %}" class="text-primary">
+                                            {{ course.name }}
+                                        </a> - {{ course.date|date:"d M Y H:i" }} (Lieu : {{ course.location }})
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>Aucune course associée.</p>
+                        {% endif %}
+
+                        <a href="{% url 'hippodrome:cheval_list' %}" class="btn btn-secondary mt-3">Retour à la liste des chevaux</a>
+                    </div>
+                    </div>
+                    <div class="col-md-5">
+                        {% if cheval.photo %}
+                            <img src="{{ cheval.photo.url }}" class="card-img-top" alt="Image de {{ cheval.name }}">
+                        {% endif %}
+                    </div>
+                </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

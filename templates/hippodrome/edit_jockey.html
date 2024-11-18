@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block main %}
+
+  <main id="main" class="main">
+    <div class="container">
+
+      <section class="section register d-flex flex-column align-items-center justify-content-center">
+        <div class="container">
+          <div class="justify-content-center">
+            <div class="row mx-auto d-flex flex-column align-items-center justify-content-center">
+
+              <div class="card mb-3 col-md-8 mx-auto">
+
+               <div class="card-body">
+
+                    <div class="pt-4 pb-2">
+                        <h5 class="card-title text-center pb-0 fs-4">Modifier le Jockey #{{ jockey.id }}</h5>
+                        <p class="text-center small">Saisissez les nouvelles informations</p>
+                    </div>
+                
+                    <div class="row gy-4 pb-0 mb-0">
+                
+                        <form class="row g-3 needs-validation" enctype="multipart/form-data" novalidate method="post">
+                            {% csrf_token %}
+                            <div class="col-md-6 gy-2 gap-5">
+                
+                                <div class="col-12 mb-3">
+                                    <label for="id_email" class="form-label">Nom</label>
+                                    {{ form.name }}
+                                </div>
+                
+                                <div class="col-12 mb-3">
+                                    <label for="id_name" class="form-label">Age</label>
+                                    {{ form.age }}
+                                    <div class="invalid-feedback">Veuillez entrer votre prenom!</div>
+                                </div>
+                
+                            </div>
+                            <div class="col-md-6 gy-2 gap-5">
+                
+                                <div class="col-12 mb-3">
+                                    <label for="id_experience" class="form-label">Experience</label>
+                                    {{ form.experience }}
+                                    <div class="invalid-feedback">Veuillez entrer l'experience!</div>
+                                </div>
+                                <div class="col-12 mb-3" id="id_div_password_none">
+                                    <label for="id_photo" class="form-label">Image</label>
+                                    {{ form.photo }}
+                                    <small class="invalid-feedback">Les mots de passe ne correspondent pas !</small>
+                                </div>
+                
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary w-100" type="submit">Modifier</button>
+                            </div>
+                        </form>
+                
+                    </div>
+                
+                </div>
+
+
+
+            </div>
+          </div>
+        </div>
+        
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+{% endblock %}
+
+  
